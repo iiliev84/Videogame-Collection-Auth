@@ -1,0 +1,33 @@
+{
+  "name": "videogame-collection",
+  "version": "1.0.0",
+  "description": "Videogame Collection Backend Application",
+  "main": "index.js",
+  "type": "module",
+  "imports": {
+    "#*": "./*.js"
+  },
+  "scripts": {
+    "db:schema": "psql -d videogames -f db/schema.sql",
+    "db:seed": "node --env-file=.env db/seed.js",
+    "db:reset": "npm run db:schema && npm run db:seed",
+    "dev": "node --watch --env-file=.env server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iiliev84/Videogame-Collection.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iiliev84/Videogame-Collection/issues"
+  },
+  "homepage": "https://github.com/iiliev84/Videogame-Collection#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.0"
+  }
+}
