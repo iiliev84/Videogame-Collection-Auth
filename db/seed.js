@@ -1,5 +1,5 @@
 import db from "#db/client";
-import { createGame } from "#db/queries/games";
+import { createGame, createUser } from "#db/queries/games";
 import { createPlatform } from "#db/queries/platforms";
 
 await db.connect();
@@ -23,7 +23,7 @@ async function seed() {
 ];
 
     for (const platform of platforms){
-        await createPlatform(platform);
+      await createPlatform(platform);
     }
     
 const games = [
@@ -40,6 +40,25 @@ const games = [
 ];
 
     for (const game of games){
-        await createGame(game);
+      await createGame(game);
     }
+
+
+const users = [
+    {first_name: 'Levski', last_name: 'Sofia', email: 'levski@gmail.com', password: '12345'},
+    {first_name: 'Botev', last_name: 'Plovdiv', email: 'botev@gmail.com', password: '1234'},
+    {first_name: 'Slavia', last_name: 'Sofia', email: 'slavia@gmail.com', password: '55555'},
+    {first_name: 'Crazy', last_name: 'Forest', email: 'crazy@gmail.com', password: '4444'},
+    {first_name: 'Spartak', last_name: 'Varna', email: 'spartak@gmail.com', password: '3333'},
+    {first_name: 'Cherno', last_name: 'More', email: 'cherno@gmail.com', password: '2222'},
+    {first_name: 'Botev', last_name: 'Vraca', email: 'vraca@gmail.com', password: '1111'},
+    {first_name: 'Tire', last_name: 'Lovech', email: 'tire@gmail.com', password: '33333'},
+    {first_name: 'Samo', last_name: 'Levski', email: 'samo@gmail.com', password: '22222'},
+    {first_name: 'Ilian', last_name: 'Iliev', email: 'ilian@gmail.com', password: '111111'},
+];
+
+for(const user of users) {
+  await createUser(user);
+  }
+
 }

@@ -45,3 +45,12 @@ export async function updateGame({id, title, genre, release_year}){
   const {rows: game} = await db.query(sql, [title, genre, release_year, id]);
   return game[0];
   }
+
+  export async function createUser({first_name, last_name, email, password}) {
+  const sql = `
+  INSERT INTO users (first_name, last_name, email, password)
+  VALUES ($1, $2, $3, $4) 
+  RETURNING *;` 
+  const { rows: [user], } = await db.query(sql, [first_name, last_name, email, password]);
+  return user;
+};

@@ -17,3 +17,11 @@ CREATE TABLE games (
   FOREIGN KEY (platform_id) REFERENCES platforms (id) ON DELETE CASCADE,
   UNIQUE(title, release_year)
 );
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY, 
+    first_name TEXT, 
+    last_name TEXT, 
+    email TEXT NOT NULL, 
+    password TEXT NOT NULL
+);
