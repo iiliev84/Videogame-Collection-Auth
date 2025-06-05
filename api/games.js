@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 export default router;
 import { createGame, getGames, getGame, deleteGame, updateGame } from "#db/queries/games"
+import { verifyToken } from "#api/users";
 
 function isValidId(id) {
     const num = Number(id);
@@ -13,7 +14,10 @@ router.route("/").get(async (req, res) => {
     res.send(games);
 });
 
-router.route("/").post(async (req, res) => {
+router.route("/").post(verifyToken, async (req, res) => {
+    if(!req.user){
+        return res.status(404).send("Not authorized user")
+    }
     if(!req.body){
         return res.status(400).send({error: "Missing body"})
     }
@@ -37,8 +41,11 @@ router.route("/:id").get(async (req, res) => {
     res.send(game)
 })
 
-router.route("/:id").delete(async (req, res) => {
+router.route("/:id").delete(verifyToken, async (req, res) => {
     const id = Number(req.params.id)
+    if(!req.user){
+        return res.status(404).send("Not authorized user")
+    }
     if (!isValidId(id)) {
     return res.status(400).send({ error: "ID must be a positive integer" });
   }
@@ -49,8 +56,11 @@ router.route("/:id").delete(async (req, res) => {
     res.sendStatus(204)
 })
 
-router.route("/:id").put(async (req, res) => {
+router.route("/:id").put(verifyToken, async (req, res) => {
     const id = Number(req.params.id)
+    if(!req.user){
+        return res.status(404).send("Not authorized user")
+    }
     if(!req.body){
         return res.status(400).send({error: "Missing body"})
     }
